@@ -130,3 +130,5 @@ dmypy.json
 
 # test input file
 test.in
+
+days/*/*.in
