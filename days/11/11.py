@@ -3,6 +3,7 @@ import time
 
 def solution():
     data = open(r'days\11\11.in').readlines()
+    # data = open(r'days\{CHANGEME}\ex.in').readlines()
     data = [x.strip() for x in data]
     start = time.time()
     print('Part 1 result: ' + str(part1(data)))

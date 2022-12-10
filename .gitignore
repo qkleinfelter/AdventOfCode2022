@@ -132,3 +132,5 @@ dmypy.json
 test.in
 
 days/*/*.in
+!days/!template/ex.in
+!days/!template/template.in
