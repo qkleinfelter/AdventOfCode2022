@@ -8,7 +8,10 @@ def solution():
     print('Part 1 result: ' + str(part1(data)))
     print(f'Finished p1 in {time.time() - start} seconds')
     start = time.time()
-    print('Part 2 result: ' + str(part2(data)))
+    print('Part 2 result: ')
+    p2_screen = part2(data)
+    for line in p2_screen:
+        print(''.join(line))
     print(f'Finished p2 in {time.time() - start} seconds')
     
 def part1(data):
@@ -37,39 +40,25 @@ def part1(data):
 def part2(data):
     cycle = 0
     register = 1
-    screen = [['' for _ in range(40)] for _ in range(6)]
+    screen = [[' ' for _ in range(40)] for _ in range(6)]
     sum = 0
-    ln = 0
     for line in data:
         if line == 'noop':
-            cycle += 1
-            if register - 1 <= cycle % 40 <= register + 1:
-                screen[ln][cycle % 40] = '#'
-            else:
-                screen[ln][cycle % 40] = '.'
-            if cycle % 40 == 0:
-                ln += 1
+            cycle = run_cycle(cycle, screen, register)
         else:
             # addx V
             reg_inc = int(line.split(' ')[1])
 
-            cycle += 1
-            if register - 1 <= cycle % 40 <= register + 1:
-                screen[ln][cycle % 40] = '#'
-            else:
-                screen[ln][cycle % 40] = '.'
-            if cycle % 40 == 0:
-                ln += 1
+            cycle = run_cycle(cycle, screen, register)
+            cycle = run_cycle(cycle, screen, register)
             
-            cycle += 1
-            if register - 1 <= cycle % 40 <= register + 1:
-                screen[ln][cycle % 40] = '#'
-            else:
-                screen[ln][cycle % 40] = '.'
-            if cycle % 40 == 0:
-                ln += 1
             register += reg_inc
-    for line in screen:
-        print(''.join(line))
+    return screen
+
+def run_cycle(cycle, screen, register):
+    cycle += 1
+    if abs(((cycle - 1) % 40) - register) <= 1:
+        screen[(cycle - 1) // 40][(cycle - 1) % 40] = '█'
+    return cycle
 
 solution()
