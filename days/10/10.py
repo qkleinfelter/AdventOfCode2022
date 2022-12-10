@@ -38,7 +38,7 @@ def part1(data):
     return sum
 
 def part2(data):
-    cycle = 0
+    cycle = -1
     register = 1
     screen = [[' ' for _ in range(40)] for _ in range(6)]
     sum = 0
@@ -57,8 +57,8 @@ def part2(data):
 
 def run_cycle(cycle, screen, register):
     cycle += 1
-    if abs(((cycle - 1) % 40) - register) <= 1:
-        screen[(cycle - 1) // 40][(cycle - 1) % 40] = '█'
+    if abs((cycle % 40) - register) <= 1:
+        screen[cycle// 40][cycle % 40] = '█'
     return cycle
 
 solution()
