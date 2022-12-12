@@ -1,4 +1,5 @@
 import time
+from collections import deque
 
 
 def solution():
@@ -31,13 +32,12 @@ def part1(data):
             elif grid[r][c] == 'E':
                 end = (r, c)
                 grid[r][c] = 'z'
-    q = []
+    q = deque()
     explored = [start]
     parents = {}
     q.append(start)
     while len(q) > 0:
-        v = q[0]
-        q = q[1:]
+        v = q.popleft()
         if v == end:
             steps = 0
             currnode = v
@@ -81,13 +81,12 @@ def part2(data):
     
     shortest = 99999999999
     for start in possible_starts:
-        q = []
+        q = deque()
         explored = [start]
         parents = {}
         q.append(start)
         while len(q) > 0:
-            v = q[0]
-            q = q[1:]
+            v = q.popleft()
             if v == end:
                 steps = 0
                 currnode = v
