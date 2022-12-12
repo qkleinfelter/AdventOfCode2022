@@ -33,7 +33,7 @@ def part1(data):
                 end = (r, c)
                 grid[r][c] = 'z'
     q = deque()
-    explored = [start]
+    explored = set(start)
     parents = {}
     q.append(start)
     while len(q) > 0:
@@ -50,7 +50,7 @@ def part1(data):
             if 0 <= newr < len(grid) and 0 <= newc < len(grid[newr]) and ((ord(grid[newr][newc]) - ord(grid[v[0]][v[1]]) <= 1)):
                 # valid piece of the grid
                 if (newr, newc) not in explored:
-                    explored.append((newr, newc))
+                    explored.add((newr, newc))
                     parents[(newr, newc)] = v
                     q.append((newr, newc))
 
@@ -59,6 +59,8 @@ def part2(data):
     # it takes ~105 seconds to run on my machine with my input because theres a
     # lot of possible starts
     # I will probably come back and clean this up eventually
+    # edit: switching explored to set made it come back in 1.5s so maybe not as 
+    # terrible as I thought
     grid = []
     for line in data:
         line_arr = []
@@ -82,7 +84,7 @@ def part2(data):
     shortest = 99999999999
     for start in possible_starts:
         q = deque()
-        explored = [start]
+        explored = set(start)
         parents = {}
         q.append(start)
         while len(q) > 0:
@@ -100,7 +102,7 @@ def part2(data):
                 if 0 <= newr < len(grid) and 0 <= newc < len(grid[newr]) and ((ord(grid[newr][newc]) - ord(grid[v[0]][v[1]]) <= 1)):
                     # valid piece of the grid
                     if (newr, newc) not in explored:
-                        explored.append((newr, newc))
+                        explored.add((newr, newc))
                         parents[(newr, newc)] = v
                         q.append((newr, newc))
     return shortest
